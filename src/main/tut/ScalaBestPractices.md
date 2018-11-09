@@ -114,4 +114,18 @@ def canIGoAny(x: Any): String = x match {
 
 ### When should you return unit?
 
-When you want to perform some side effect, tipicaly at the end of the data flow. For example writing to the database, or to the network.
+When you want to perform some side effect, typically at the end of the data flow. For example writing to the database, or to the network.
+
+### `private`, really?!
+
+In my experience people tend to create `private` methods when they try to hide some dirty hack from others, and usually it has nothing to do with OOP encapsulation of internal state or internal state processing. Every time when you finish writing a private method, you should ask yourself the following questions:
+* Does this method change something outside of its scope?
+* Does it make sense to reuse this method somewhere? Maybe completely outside of the scope of this program?
+* Do I make this method private because i'm not sure if others can use it as well as me?
+* Am I ready to take the testing difficulty trade-offs of this private method? TODO write about why is it difficult to test
+
+If your answer to any of those questions is true, then you should think about how can you make that method public!
+
+If you feel yourself guilty reading the previous lines, bad memories firing all over your brain, then first of all keep calm, don't worry, you are not alone! From now on you should concentrate only on this mantra:
+
+"As long as my method is pure, it only works on its inputs and returns a well defined output (not Any or AnyDef) it has to be public!"
