@@ -1,0 +1,9 @@
+It is not fine to return Unit or Any
+
+Do not use maps to return different types
+
+Instead of returning Any return a wrapped (path dependent) type
+
+What is an Object? It is a Singleton pattern! It is a builder, factory
+
+private, really? Private usually means you are doing something 
