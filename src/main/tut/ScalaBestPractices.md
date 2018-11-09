@@ -61,7 +61,7 @@ When the return type is not the same what type you construct right after the equ
 ```tut
 import scala.util.Try
 
-def f(x: Int):Option[Int] = Try{
+def divideByZero(x: Int):Option[Int] = Try{
   // Some silly computation
   x / 0
 }.toOption
@@ -85,6 +85,32 @@ Methods that return something can be composed together, allowing us to create co
 ### Why not to return Any or AnyRef
 
 Similarly to Unit methods that return Any don't compose. The only way to use the output of Any in a new method is to pattern match on the possible types. The problem here is unlike pattern matching on Union types the compiler can't figure out if we missed a possible case.
+
+```tut
+sealed trait TrafficLight
+case object Red extends TrafficLight
+case object Yellow extends TrafficLight
+case object Green extends TrafficLight
+
+// Exhaustive pattern mach
+def canIGoExhaustive(x: TrafficLight): String = x match {
+  case Red => "Not yet"
+  case Yellow => "Be ready"
+  case Green => "Yes"
+}
+
+// Missing one case, compiler warns (or fails dependig on compiler parameters)
+def canIGoPartial(x: TrafficLight): String = x match {
+  case Red => "Not yet"
+  case Yellow => "Be ready"
+}
+
+// No warning when pattern matching on Any
+def canIGoAny(x: Any): String = x match {
+  case Red => "Not yet"
+  case Yellow => "Be ready"
+}
+```
 
 ### When should you return unit?
 

@@ -9,6 +9,9 @@ lazy val root = (project in file(".")).
       scalaVersion := "2.12.7",
       version      := "0.1.0-SNAPSHOT"
     )),
+    scalacOptions ++= Seq(
+      //"-Xfatal-warnings"
+    ),
     name := "scala-best-practices",
     libraryDependencies += scalaTest % Test
   )
